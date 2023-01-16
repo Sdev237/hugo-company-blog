@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Frontend\GetPostController;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
@@ -30,4 +31,11 @@ Route::prefix('/admin')->group(function (){
 
     //setting routes
     Route::get('/settings',[SettingController::class,'index']);
+    Route::post('/setting/{id}',[SettingController::class,'update']);
+});
+
+Route::prefix('/front')->group(function(){
+    Route::get('/posts', [GetPostController::class, 'index']);
+    Route::get('/view-Posts', [GetPostController::class, 'viewPosts']);
+    Route::get('/detail-Posts/{id}', [GetPostController::class, 'getPostsById']);
 });

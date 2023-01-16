@@ -27,7 +27,7 @@ class SettingFactory extends Factory
             'instagram' => 'instagram',
             'linkedin' => 'linkedin',
             'about_title' => $this->faker->sentence(),
-            'about_desc' => $this->faker->paragraph(3),
+            'about_desc' => $this->faker->paragraph(),
         ];
     }
 }
