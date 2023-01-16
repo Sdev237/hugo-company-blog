@@ -38,4 +38,5 @@ Route::prefix('/front')->group(function(){
     Route::get('/posts', [GetPostController::class, 'index']);
     Route::get('/view-Posts', [GetPostController::class, 'viewPosts']);
     Route::get('/detail-Posts/{id}', [GetPostController::class, 'getPostsById']);
+    Route::get('/category-Posts/{id}', [GetPostController::class, 'getPostsByCategory']);
 });

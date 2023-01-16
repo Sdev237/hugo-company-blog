@@ -27,6 +27,7 @@ class GetPostController extends Controller
             ]);
         }
     }
+
     /**
      * function get  viewPosts
      */
@@ -46,6 +47,7 @@ class GetPostController extends Controller
             ]);
         }
     }
+
     /**
      * function get-posts-ById
      */
@@ -59,6 +61,27 @@ class GetPostController extends Controller
                 'success'=>true,
                 'posts'=>$posts
             ]);
+
+            $posts->increment('views', 1);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success'=>false,
+                'message'=>$e->getMessage(),
+            ]);
+        }
+    }
+
+    /**
+     * function get-posts-ByCategory
+     */
+    public function getPostsByCategory($id)
+    {
+        try {
+            $posts = Post::with('categorys')->where('cat_id', $id)->orderBy('id', 'desc')->get();
+            return response()->json([
+                'success'=>true,
+                'posts'=>$posts
+            ]); 
 
             $posts->increment('views', 1);
         } catch (\Exception $e) {
