@@ -224,7 +224,7 @@ class PostController extends Controller
     public function search($search)
     {
         try {
-            $posts = Post::where('title', 'LIKE', '%'.$search.'%')->orderBy('id', 'desc')->with('categorys')->get();
+            $posts = Post::with('categorys')->where('title', 'LIKE', '%'.$search.'%')->orderBy('id', 'desc')->get();
             if($posts){
                 return response()->json([
                     'success'=>true,

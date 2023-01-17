@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Frontend\Contact;
 use App\Http\Controllers\Frontend\GetPostController;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
@@ -12,6 +14,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+//Controllers/Admin
 Route::prefix('/admin')->group(function (){
     //categorys routes
     Route::get('/categorys',[CategoryController::class,'index']);
@@ -32,11 +35,21 @@ Route::prefix('/admin')->group(function (){
     //setting routes
     Route::get('/settings',[SettingController::class,'index']);
     Route::post('/setting/{id}',[SettingController::class,'update']);
+
+    //contact routes
+    Route::get('/contacts',[ContactController::class,'getContacts']);
+    Route::delete('/contacts/{id}',[ContactController::class,'deleteContacts']);
 });
 
+//Controllers/Frontend
 Route::prefix('/front')->group(function(){
+    //get-post routes
     Route::get('/posts', [GetPostController::class, 'index']);
     Route::get('/view-Posts', [GetPostController::class, 'viewPosts']);
     Route::get('/detail-Posts/{id}', [GetPostController::class, 'getPostsById']);
     Route::get('/category-Posts/{id}', [GetPostController::class, 'getPostsByCategory']);
+    Route::get('/search-post/{search}',[GetPostController::class,'searchPost']);
+
+    //contact routes
+    Route::post('/contact',[Contact ::class,'store']);
 });
