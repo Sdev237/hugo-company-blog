@@ -3,33 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Contact;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
-class ContactController extends Controller
+class CommentController extends Controller
 {
-    public function getContacts()
+    public function getComments()
     {
         try {
-            $contacts=Contact::orderBy('id', 'desc')->get();
+            $comments=Comment::orderBy('id', 'desc')->get();
             return response()->json([
                 'success'=>true,
-                'cotacts'=>$contacts,
-            ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => $e->getMessage(),
-            ]);
-        }
-    }
-    public function getAllContacts()
-    {
-        try {
-            $contacts=Contact::count();
-            return response()->json([
-                'success'=>true,
-                'cotacts'=>$contacts,
+                'cotacts'=>$comments,
             ]);
         } catch (\Exception $e) {
             return response()->json([
@@ -39,14 +24,30 @@ class ContactController extends Controller
         }
     }
 
-    //function deleteContacts
+    public function getAllComments()
+    {
+        try {
+            $comments=Comment::count();
+            return response()->json([
+                'success'=>true,
+                'cotacts'=>$comments,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ]);
+        }
+    }
+
+    //function deletecomments
     public function deleteContacts($id)
     {
-        $result=Contact::findOrFail($id)->delete();
+        $result=Comment::findOrFail($id)->delete();
         if($result){
             return response()->json([
                 'success'=>true,
-                'message'=>'Contact Delete Successfully',
+                'message'=>'Comment Delete Successfully',
             ]);
         }else{
             return response()->json([

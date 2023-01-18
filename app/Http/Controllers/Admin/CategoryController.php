@@ -8,16 +8,37 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use PhpParser\Node\Stmt\TryCatch;
+use PDO;
 
 class CategoryController extends Controller
 {
     /**
-     * get all category controller function
+     * get  category controller function
      */
     public function index()
     {
         try {
             $categorys = Category::orderBy('id', 'desc')->get();
+            if($categorys){
+                return response()->json([
+                    'success' => true,
+                    'categorys' => $categorys
+                ]);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ]);
+        }
+    }
+    /**
+     * get all category controller function
+     */
+    public function getAllCategory()
+    {
+        try {
+            $categorys = Category::count();
             if($categorys){
                 return response()->json([
                     'success' => true,

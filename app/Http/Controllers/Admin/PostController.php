@@ -33,6 +33,24 @@ class PostController extends Controller
         }
     }
 
+    public function getAllPost()
+    {
+        try {
+            $posts = Post::count();
+            if($posts){
+                return response()->json([
+                    'success'=>true,
+                    'posts'=>$posts
+                ]);
+            }
+        } catch (Exception $e) {
+            return response()->json([
+                'success'=>false,
+                'message'=>$e->getMessage(),
+            ]);
+        }
+    }
+
     /**
      * get all categories controller function
      */
