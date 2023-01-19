@@ -32,13 +32,13 @@ class AdminAuthor extends Controller
                 if(!$users){
                     return response()->json([
                         'success'=>false,
-                        'message'=>'Invalid username and password'
+                        'message'=>'Invalid username'
                     ]); 
                 }else{
                     if(!Hash::check($request->password, $users->password)){
                         return response()->json([
                             'success'=>false,
-                            'message'=>'Invalid username and password'
+                            'message'=>'Invalid  password'
                         ]);
                     }else{
                         $token=$users->createToken('token')->plainTextToken;
@@ -72,7 +72,6 @@ class AdminAuthor extends Controller
     /**
      * function logout
      */
-    /*
     public function logout(Request $request)
     {
         try {
@@ -84,5 +83,5 @@ class AdminAuthor extends Controller
                 'message'=>$e->getMessage(),
             ]);
         }
-    }*/
+    }
 }

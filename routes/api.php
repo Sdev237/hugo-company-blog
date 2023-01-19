@@ -12,17 +12,19 @@ use App\Http\Controllers\Frontend\Contact;
 use App\Http\Controllers\Frontend\GetPostController;
 use App\Http\Controllers\Frontend\SubscribeController;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
+
+
+//route login
+Route::post('/login', [AdminAuthor::class, 'login']);
 
 //all these route are protected
 Route::middleware('auth:sanctum')->group(function()
 {
     //Controllers/Admin
     Route::prefix('/admin')->group(function (){
-        //route login
-        Route::post('/login', [AdminAuthor::class, 'login']);
-        Route::get('admins', [AdminAuthor::class, 'admins']);
+
+        Route::get('/admins', [AdminAuthor::class, 'admins']);
         Route::post('/logout', [AdminAuthor::class, 'logout']);
 
         //categorys routes
