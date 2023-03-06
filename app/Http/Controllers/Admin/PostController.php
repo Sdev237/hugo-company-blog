@@ -94,13 +94,11 @@ class PostController extends Controller
                 $filename = "";
                 if($request->file('image')){
                     $filename = $request->file('image')->store('posts', 'public');
-                }else{
-                    $filename='null';
                 }
                 $result=Post::create([
                     'title'=>$request->title,
                     'description'=>$request->description,
-                    'image'=>$request->image,
+                    'image'=> $filename,
                     'cat_id'=>$request->cat_id,
                     'views'=>1,
 
@@ -238,6 +236,7 @@ class PostController extends Controller
 
     /**
      * function search TchoffoBright Josephine@1997*
+     * Claude Karelle (ytube), www.glassdoor.ca,chiefkeef(rapusa)
      */
     public function search($search)
     {

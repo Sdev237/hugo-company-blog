@@ -22,4 +22,9 @@ class Post extends Model
     {
         return $this->belongsTo(Category::class, 'cat_id');
     }
+
+    public function getImageAttribute($image) 
+    {
+        return url()->asset('storage/'.$image);
+    }
 }

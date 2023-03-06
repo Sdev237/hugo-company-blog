@@ -15,17 +15,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
-//route login
-Route::post('/login', [AdminAuthor::class, 'login']);
+
+        Route::post('/posts',[PostController::class,'store']);
+        Route::delete('/posts/{id}',[PostController::class,'delete']);
 
 //all these route are protected
 Route::middleware('auth:sanctum')->group(function()
 {
     //Controllers/Admin
     Route::prefix('/admin')->group(function (){
+        //route login
+        Route::post('/login', [AdminAuth::class, 'login']);
 
-        Route::get('/admins', [AdminAuthor::class, 'admins']);
-        Route::post('/logout', [AdminAuthor::class, 'logout']);
+        Route::get('/admins', [AdminAuth::class, 'admins']);
+        Route::post('/logout', [AdminAuth::class, 'logout']);
 
         //categorys routes
         Route::get('/categorys',[CategoryController::class,'index']);
@@ -37,10 +40,8 @@ Route::middleware('auth:sanctum')->group(function()
 
         //posts routes
         Route::get('/posts',[PostController::class,'index']);
-        Route::post('/posts',[PostController::class,'store']);
         Route::put('/posts/{id}',[PostController::class,'edit']);
         Route::post('/posts/{id}',[PostController::class,'update']);
-        Route::delete('/posts/{id}',[PostController::class,'delete']);
         Route::get('/posts/{search}',[PostController::class,'search']);
 
         //setting routes
